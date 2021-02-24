@@ -249,7 +249,7 @@
     <fieldset >
         <legend align="center"><h1>Club Member Registration Form</h1></legend>
         <form action="" method="post"></form>
-        <table border="1">
+        <table>
         <tr>
                     <td align="right"><Span>Name</Span></td>
                     <td>: <input type="text" placeholder="Name" value=" <?php echo $name; ?> " name="name"> 
