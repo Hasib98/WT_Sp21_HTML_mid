@@ -1,46 +1,40 @@
 <html>
 <head>
-    <title>Club Registration Form</title>
+    <title>Registration Form</title>
 </head>
-
 <body>
-<?php
-        $name=$err_name=$uname=$err_uname=$password=$err_password=$conpassword=$err_conpassword=$aboutus=$err_aboutus=$bio=$err_bio=$gender=$err_gender=$bday=$byear=$bmonth=$err_bday=$err_byear=$err_bmonth=$email=$err_email=$phone=$err_phone=$street=$city=$state=$zip=$err_street=$err_city=$err_zip=$err_state=""; 
+    <?php
+        $name=$errorShow_name=$uname=$errorShow_uname=$password=$errorShow_password=$confirmpassword=$errorShow_confirmpassword=$aboutus=$errorShow_aboutus=$bio=$errorShow_bio=$gender=$errorShow_gender=$bday=$byear=$bmonth=$errorShow_bday=$errorShow_byear=$errorShow_bmonth=$email=$errorShow_email=$phone=$errorShow_phone=$street=$city=$state=$zip=$errorShow_street=$errorShow_city=$errorShow_zip=$errorShow_state=""; 
         $passcheck=false; 
+      
 
 
-
-
-        function passValidation($pass){
-            $boolUpper=false;
-            $boolLower=false;
-            $boolHashtag=false;
-            $boolQuestionMark=false;
-            $boolNum=false;
-            $passlength= strlen($pass);
-            for($i=0;$i<$passlength;$i++){
+        function PasswordCheck($pass){
+            $UpperCase=$LowerCase=$Hashtag=$QuestionMark=$Num=false;
+            $passwordLength= strlen($pass);
+            for($i=0;$i<$passwordLength;$i++){
                 if(ctype_upper($pass[$i])){
-                    $boolUpper=true;
+                    $UpperCase=true;
                     
                 }
                 if(ctype_lower($pass[$i])){
-                    $boolLower=true;
+                    $LowerCase=true;
                     
                 }
                 if($pass[$i]== '#'){
-                    $boolHashtag=true;
+                    $Hashtag=true;
                 
                 }
                 
                 if($pass[$i]== '?'){
-                    $boolQuestionMark=true;
+                    $QuestionMark=true;
                 
                 }
                 if($pass[$i] >= '0' && $pass[$i] <= '9'){
-                    $boolNum=true;
+                    $Num=true;
                 
                 }
-                if($boolLower && $boolUpper && $boolHashtag || $boolQuestionMark && $boolNum){
+                if($LowerCase && $UpperCase && $Hashtag || $QuestionMark && $Num){
                     return true;
                 }
             
@@ -51,14 +45,16 @@
             
         }
 
+      
+
         if($_SERVER['REQUEST_METHOD']=='POST'){
             
             if(empty($_POST["uname"])){
-                $err_uname="*Username Required";
+                $errorShow_uname="*Username Required";
                 
             }
             else if(strlen($_POST["uname"]) <6){
-                $err_uname="*Username should be at least 6 characters";
+                $errorShow_uname="*Username Must be at least 6 characters";
                 ;
             }
             else{
@@ -67,23 +63,23 @@
             
             
             if(empty($_POST["name"])){
-                $err_name="*Name required";
+                $errorShow_name="*Name required";
             }
             else{
                 $name=$_POST["name"];
             }
             
             if(empty($_POST["pass"])){
-                $err_password = "*Password Required";
+                $errorShow_password = "*Password Required";
                 
             }
             
             else if(strlen($_POST["pass"])<8){
-                $err_password="*Password must be at least 8 characters";
+                $errorShow_password="*Password must be at least 8 characters";
             }
 
-            else if (!passValidation($_POST["pass"])){
-                $err_password="*Password must contain upper, lower, special character (# or ?) and number";
+            else if (!PasswordCheck($_POST["pass"])){
+                $errorShow_password="*Password must contain UpperCase, LowerCase, special character (# or ?) and number";
             }
 
             else{
@@ -102,15 +98,15 @@
 
 
             if(empty($_POST["cpass"])){
-                $err_conpassword="*Please enter confirm password";
+                $errorShow_confirmpassword="*Please re-type your password";
             }
 
             else if($_POST["cpass"]!=$_POST["pass"]){
-                $err_conpassword="*Please match confirm password";
+                $errorShow_confirmpassword="*Please match confirm password";
             }
             
             else{
-                $conpassword=$_POST["cpass"];
+                $confirmpassword=$_POST["cpass"];
             }
 
             
@@ -118,7 +114,7 @@
           
 
             if(empty($_POST["email"])){
-               $err_email="*Please enter email";
+               $errorShow_email="*Please enter email";
             }
 
             else{
@@ -129,20 +125,20 @@
                         $email=$_POST["email"];
                     }
                     else{
-                        $err_email="*Invalid email";
+                        $errorShow_email="*Invalid email";
                     }
                 }
                 else{
-                    $err_email="*Invalid email";
+                    $errorShow_email="*Invalid email";
                 }
             }
 
             if(empty($_POST["phonenumber"])){
-                $err_phone="*Enter phone number";
+                $errorShow_phone="*Enter phone number";
             }
 
             else if(is_numeric($_POST["phonenumber"])==false){
-                $err_phone="*Please enter digit";
+                $errorShow_phone="*Please enter digit";
             }
             else{
                 $phone=$_POST["phonenumber"];
@@ -150,14 +146,14 @@
 
 
             if(empty($_POST["street"])){
-                $err_street="*enter street";
+                $errorShow_street="*Street Address Required";
             }
             else{
                 $street=$_POST["street"];
             }
 
             if(empty($_POST["city"])){
-                $err_city="*enter city ";
+                $errorShow_city="*City Required ";
             }
             else{
                 $city=$_POST["city"];
@@ -165,7 +161,7 @@
 
 
             if(empty($_POST["state"])){
-                $err_state="*enter state";
+                $errorShow_state="*State Required";
             }
             else{
                 $state=$_POST["state"];
@@ -173,10 +169,10 @@
 
 
             if(empty($_POST["zip"])){
-                $err_zip="*enter zip";
+                $errorShow_zip="*Zip code of your area Required";
             }
             else if(is_numeric($_POST["zip"])==false){
-                $err_zip="*Zip number must be digit";
+                $errorShow_zip="*Zip number must be digit";
             }
             else{
                 $zip=$_POST["zip"];
@@ -185,21 +181,21 @@
 
 
             if(($_POST["day"])=="Day"){
-				$err_bday="*Please select Day";
+				$errorShow_bday="*Select Day";
 			}
             else{
                 $bday=$_POST["day"];
             }
 
             if(($_POST["month"])=="Month"){
-				$err_bmonth="*Please select Month";
+				$errorShow_bmonth="*Select Month";
 			}
             else{
                 $bmonth=$_POST["month"];
             }
 
             if(($_POST["year"])=="Year"){
-				$err_byear="*Please select Year";
+				$errorShow_byear="*Select Year";
 			}
             else{
                 $byear=$_POST["year"];
@@ -208,104 +204,90 @@
            
 
             if(empty($_POST["gender"])){
-				$err_gender="****Please select gender";
+				$errorShow_gender="****Select gender";
 			}
             else{
                 $gender=$_POST["gender"];
             }
 
             if(empty($_POST["aboutus"])){
-                $err_aboutus="*Please select something";
+                $errorShow_aboutus="*Select  1 or many options";
             }
             else{
                 $aboutus=$_POST["aboutus"];
             }
 
             if(empty($_POST["bio"])){
-                $err_bio="*Bio text area must be filled";
+                $errorShow_bio="*Bio text area must be filled";
             }
             else{
                 $bio=$_POST["bio"];
             }
            
         }
-?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <fieldset >
+    ?>
+    
+    <fieldset align="middle">
         <legend align="center"><h1>Club Member Registration Form</h1></legend>
-        <form action="" method="post"></form>
-        <table>
-        <tr>
+        <form action="" method="post">
+            <table>
+            
+                <tr>
                     <td align="right"><Span>Name</Span></td>
                     <td>: <input type="text" placeholder="Name" value=" <?php echo $name; ?> " name="name"> 
-                    <span><?php echo $err_name; ?></span></td>
+                    <span style="color:red"><?php echo $errorShow_name; ?></span></td>
                 </tr>
                 <tr>
-                    <td align="right"><span>Username</span></td>
+                    <td align="right"><Span>Username</span></td>
                     <td>: <input type="text" placeholder="Username" value=" <?php echo $uname; ?>" name="uname"> 
-                    <span><?php echo $err_uname; ?></span></td></td>
+                    <span style="color:red"><?php echo $errorShow_uname; ?></span></td></td>
                 </tr>
 
                 <tr>
-                    <td align="right"><span>Password</span></td>
+                    <td align="right"><Span>Password</span></td>
                     <td>: <input type="password" placeholder="Password" value="<?php echo $password; ?>" name="pass"> 
-                    <span><?php echo $err_password; ?></span></td> 
+                    <span style="color:red"><?php echo $errorShow_password; ?></span></td>
                 </tr>
 
                 <tr>
-                    <td align="right"><span>Confirm Password</span></td>
-                    <td>: <input type="password" placeholder="Confirm Password" value="<?php echo $conpassword; ?>" name="cpass">
-                     <span><?php echo $err_conpassword; ?></span></td>
+                    <td align="right"><Span>Confirm Password</span></td>
+                    <td>: <input type="password" placeholder="Confirm Password" value="<?php echo $confirmpassword; ?>" name="cpass">
+                    <span style="color:red"><?php echo $errorShow_confirmpassword; ?></span></td>
                 </tr>
 
                 <tr>
-                <td align="right"><span>Email</span></td>
+                <td align="right"><Span>Email</span></td>
                     <td>: <input type="text" placeholder="Email" value="<?php echo $email; ?>" name="email"> 
-                    <span><?php echo $err_email; ?></span></td>
+                    <span style="color:red"><?php echo $errorShow_email; ?></span></td>
                 </tr>
 
                 <tr>
-                <td align="right"><span>Phone Number</span></td>
+                <td align="right"><Span>Phone Number</span></td>
                     <td>: <input type="text" placeholder="Phone Number" value="<?php echo $phone; ?>" name="phonenumber">
-                    <span><?php echo $err_phone; ?></span> </td>
+                    <span style="color:red"><?php echo $errorShow_phone; ?></span> </td>
                 </tr>
                 
                 <tr>
                     <td align="right" rowspan="4"><span>Address</span></td>
                     <td>: <input type="text" placeholder="Street Address" value="<?php echo $street; ?>" name="street"> 
-                    <span><?php echo $err_street; ?></span></td>
+                    <span style="color:red"><?php echo $errorShow_street; ?></span></td>
                 </tr>
 
                 <tr>
                     <td>: <input type="text" placeholder="City" value="<?php echo $city; ?>" name="city">
-                    <span><?php echo $err_city; ?></span></td>
+                    <span style="color:red"><?php echo $errorShow_city; ?></span></td>
                     
                     
                 </tr>
                 <tr>
                     <td>: <input type="text" placeholder="State" value="<?php echo $state; ?>" name="state">
-                    <span><?php echo $err_state; ?></span></td>
+                    <span style="color:red"><?php echo $errorShow_state; ?></span></td>
                 
                 </tr>
 
                 <tr>
-                    <td>: <input type="text" placeholder="Postal/zip code" value="<?php echo $zip; ?>" name="zip"> 
-                    <span><?php echo $err_zip; ?></span></td>
+                    <td>: <input type="text" placeholder="Postal/Zip code" value="<?php echo $zip; ?>" name="zip"> 
+                    <span style="color:red"><?php echo $errorShow_zip; ?></span></td>
                 </tr>
 
                 <tr>
@@ -335,21 +317,21 @@
 								<option>Year</option>
 								
 								<?php
-									for($i=1900;$i<=2021;$i++){
+									for($i=1903;$i<=2021;$i++){
 										echo "<option>$i</option>";	
 									}
 								?>
 							</select>
-                            <span> <?php echo $err_bday;?> </span>
-                            <span> <?php echo $err_bmonth;?> </span>
-                            <span> <?php echo $err_byear;?> </span> 
+                            <span style="color:red"> <?php echo $errorShow_bday;?> </span>
+                            <span style="color:red"> <?php echo $errorShow_bmonth;?> </span>
+                            <span style="color:red"> <?php echo $errorShow_byear;?> </span>
 						</td>
                 </tr>
                 
                 <tr>
-						<td align="right"><span>Gender</span></td>
+						<td align="right"><Span>Gender</span></td>
 						<td>:<input type="radio" value="Male" name="gender">Male<input type="radio" value="Female" name="gender">Female
-                        <span> <?php echo $err_gender;?> </span></td>
+                        <span style="color:red"> <?php echo $errorShow_gender;?> </span></td>
 				</tr>
 
                 <tr>
@@ -371,20 +353,28 @@
                 </tr>
 
                 <tr>
-                    <td>:<input type="checkbox" value="News Article" name="aboutus[]">News Article</td> 
-                   
+                    <td>:<input type="checkbox" value="News Article" name="aboutus[]">News Article 
+                    <span style="color:red"> <?php  echo $errorShow_aboutus ?> </span>
+                    </td>
                 </tr>
 
-                <tr>
-						<td align="right"><span>Bio </span></td>
+                
+						<td align="right"><Span>Bio </span></td>
 						<td>:<textarea name="bio"></textarea>
-                        <span> <?php  echo $err_bio  ?> </span> 
+                        <span style="color:red"> <?php  echo $errorShow_bio  ?> </span>
                         </td>
 					</tr>
 					<tr>
 						<td align="center" colspan="2"><input type="submit" name="submit" value="Register"></td>
 				</tr>
-        </table>
+
+
+
+            </table>
+        </form>
+        
     </fieldset>
+   
+
 </body>
 </html>
