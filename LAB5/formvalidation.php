@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>Registration Form</title>
+    <title>Club Member Registration Form</title>
 </head>
 <body>
     <?php
