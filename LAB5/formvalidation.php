@@ -230,39 +230,47 @@
     <fieldset align="middle">
         <legend align="center"><h1>Club Member Registration Form</h1></legend>
         <form action="" method="post">
-            <table>
+            <table border="1">
             
                 <tr>
-                    <td align="right"><Span>Name</Span></td>
+                    <td align="right"><span>Name</span></td>
                     <td>: <input type="text" placeholder="Name" value=" <?php echo $name; ?> " name="name"> 
                     <span style="color:red"><?php echo $errorShow_name; ?></span></td>
                 </tr>
                 <tr>
-                    <td align="right"><Span>Username</span></td>
+                    <td align="right"><span>Username</span></td>
                     <td>: <input type="text" placeholder="Username" value=" <?php echo $uname; ?>" name="uname"> 
                     <span style="color:red"><?php echo $errorShow_uname; ?></span></td></td>
                 </tr>
 
                 <tr>
-                    <td align="right"><Span>Password</span></td>
+                    <td align="right"><span>Password</span></td>
                     <td>: <input type="password" placeholder="Password" value="<?php echo $password; ?>" name="pass"> 
                     <span style="color:red"><?php echo $errorShow_password; ?></span></td>
                 </tr>
 
                 <tr>
-                    <td align="right"><Span>Confirm Password</span></td>
+                    <td align="right"><span>Confirm Password</span></td>
                     <td>: <input type="password" placeholder="Confirm Password" value="<?php echo $confirmpassword; ?>" name="cpass">
                     <span style="color:red"><?php echo $errorShow_confirmpassword; ?></span></td>
                 </tr>
 
                 <tr>
-                <td align="right"><Span>Email</span></td>
-                    <td>: <input type="text" placeholder="Email" value="<?php echo $email; ?>" name="email"> 
+                <td align="right"><span>Email</span></td>
+                    <td scope="col" colspan="2">: <input type="text" placeholder="Email" value="<?php echo $email; ?>" name="email"> 
                     <span style="color:red"><?php echo $errorShow_email; ?></span></td>
                 </tr>
 
                 <tr>
-                <td align="right"><Span>Phone Number</span></td>
+                    <!-- <td scope="row" align="right">&nbsp;<span>Phone Number</span></td> -->
+                    <!-- <td>: <input type="text" placeholder="Phone Number" value="<?php echo $phone; ?>" name="phonenumber"> -->
+                    <!-- <td>: <input type="text" placeholder="Phone Number" value="<?php echo $phone; ?>" name="phonenumber"> -->
+                    <!-- <span style="color:red"><?php echo $errorShow_phone; ?></span> </td> -->
+                </tr>
+                
+
+                <tr>
+                    <td align="right"><span>Phone Number</span></td>
                     <td>: <input type="text" placeholder="Phone Number" value="<?php echo $phone; ?>" name="phonenumber">
                     <span style="color:red"><?php echo $errorShow_phone; ?></span> </td>
                 </tr>
@@ -329,7 +337,7 @@
                 </tr>
                 
                 <tr>
-						<td align="right"><Span>Gender</span></td>
+						<td align="right"><span>Gender</span></td>
 						<td>:<input type="radio" value="Male" name="gender">Male<input type="radio" value="Female" name="gender">Female
                         <span style="color:red"> <?php echo $errorShow_gender;?> </span></td>
 				</tr>
@@ -359,7 +367,7 @@
                 </tr>
 
                 
-						<td align="right"><Span>Bio </span></td>
+						<td align="right"><span>Bio </span></td>
 						<td>:<textarea name="bio"></textarea>
                         <span style="color:red"> <?php  echo $errorShow_bio  ?> </span>
                         </td>
